@@ -1,0 +1,32 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "select continue as cont, pl_continue, gap_continue from requests order by created_at desc limit 1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "cont",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 1,
+        "name": "pl_continue",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "gap_continue",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      true,
+      true,
+      true
+    ]
+  },
+  "hash": "d90740a5e5926d79f3922209f97650bec59f2b3f1b489bf45fdbddb6923936bf"
+}

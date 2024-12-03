@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE articles SET links = $2 WHERE title = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "TextArray"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "20b641ea63b46728a3ad9830c9b2a1a3f86de991af1b0c969a5ba1f621794c59"
+}
