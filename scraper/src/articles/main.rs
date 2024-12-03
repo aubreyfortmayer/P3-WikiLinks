@@ -2,18 +2,16 @@ mod dto;
 
 use dto::*;
 
-use std::collections::HashMap;
 use reqwest::Url;
-use serde::Deserialize;
 use sqlx::postgres::PgPoolOptions;
 use sqlx::{query, PgPool};
 
 #[tokio::main]
 async fn main() {
-    /// Note: Because requests to the Wikipedia API for article titles
-    /// use a generator, each subsequent request depends on the continue
-    /// parameters for the previous request. We cannot request article titles
-    /// concurrently, so everything is done on a single thread.
+    // Note: Because requests to the Wikipedia API for article titles
+    // use a generator, each subsequent request depends on the continue
+    // parameters for the previous request. We cannot request article titles
+    // concurrently, so everything is done on a single thread.
 
     // connect to the database
     let pool = PgPoolOptions::new()
@@ -42,7 +40,7 @@ async fn main() {
     loop {
         // fetch article titles
         let Ok(r) = fetch(&client, &pool, r#continue.clone()).await else { continue };
-        let mut cont = r.1.unwrap_or(PageLinksContinue { gap_continue: None, pl_continue: None, r#continue: None });
+        let cont = r.1.unwrap_or(PageLinksContinue { gap_continue: None, pl_continue: None, r#continue: None });
         if r.0 {
             println!("Done");
             break;

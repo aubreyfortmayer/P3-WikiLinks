@@ -3,7 +3,6 @@ mod dto;
 use dto::*;
 
 use reqwest::Url;
-use serde::Deserialize;
 use sqlx::postgres::PgPoolOptions;
 use sqlx::query;
 use std::collections::HashMap;
@@ -43,13 +42,13 @@ async fn main() {
 
     let (store_tx, mut store_rx) = tokio::sync::mpsc::unbounded_channel::<(String, Vec<String>)>();
 
-    /// In another thread, listen for messages from the other threads
-    /// to store the results of a call to the Wikipedia API. There's
-    /// no real benefit to doing it this way *with Postgres* because
-    /// the pool manages connections automatically and can be shared
-    /// between threads. A previous iteration used SQLite, which can
-    /// only be access from one thread at a time and would require
-    /// locking and unlock a Mutex for every write.
+    // In another thread, listen for messages from the other threads
+    // to store the results of a call to the Wikipedia API. There's
+    // no real benefit to doing it this way *with Postgres* because
+    // the pool manages connections automatically and can be shared
+    // between threads. A previous iteration used SQLite, which can
+    // only be access from one thread at a time and would require
+    // locking and unlock a Mutex for every write.
     tokio::spawn(async move {
         while let Some((name, links)) = store_rx.recv().await {
             println!("Updating {} = {}", name, links.len());
